@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="myStyle.css">
+  </head>
+  <body>
+  <script src="sip-0.7.1.min.js"></script>
+	<script src="sip-0.7.0.min.js"></script>
+    <script src="myJavascript.js"></script>
+	<script src="main.js"></script>
+	
+  <h1>Enter your Details</h1>
+  <form>
+  Enter SIP URI : <input type="text" id="uri" placeholder="Enter sip uri" autocomplete required></input>
+  <br>
+  Enter UserName : <input type="text" id="username" placeholder="Enter UserName" autocomplete required></input>
+  <br>
+  Enter Password : <input type="password" id="password" placeholder="Enter Password" required></input>
+  <br>
+  <button id="createUA">Create UserAgent</button>
+  </form>
+  <button id= "createSession">Create Session</button>
+    <br>
+	<button id="accept">Accept The Call</button>
+	<br>
+	<button id="message">Send Message</button>
+	<video style="background-color:red" id="remoteVideo"></video>
+    <video style ="background-color:yellow" id="localVideo" muted="muted"></video>
+<br>
+<br>
+<br>
+<br>
+<form>
+<h2>Enter the Target Address : </h2>
+<input type="text" id="target" placeholder="Enter Target Address" autocomplete required></input>
+<button id="callButton">Make Call</button></form>
+<br>
+<br>
+<button  id="endCall">End Call</button>
+    
+	<br>
+	<br>
+	<br>
+	
+	
+	<h1>My Dial Pad -  DTMF</h1>
+	<button id="1">1</button>
+ <button id="2">2</button>
+ <button id="3">3</button>
+ <button id="4">4</button>
+ <button id="5">5</button>
+ <button id="6">6</button>
+ <button id="7">7</button>
+ <button id="8">8</button>
+ <button id="9">9</button>
+ <button id="0">0</button>
+	
+  </body>
+</html>

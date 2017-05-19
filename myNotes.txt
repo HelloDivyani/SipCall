@@ -1,0 +1,199 @@
+##Using Sip.js:  WebRTC + SIP Signalling
+#Configure Server : 
+configure sip.js with onsip - (sip account)
+SIP.js is a full-featured SIP stack written in JavaScript. 
+With SIP.js, you can harness the power of WebRTC to build audio, video, and realtime data into your application. 
+SIP.js is fast, lightweight, and easy to use.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+#User Agent Construction  :
+Process of Creating SIP User Agent :
+ An anonymous user agent can make calls and send messages to SIP endpoints. 
+ *It cannot receive calls or messages.*
+ This configuration object needs a uri.
+ This will have a username and a domain.
+ It will look something like examplename@test.onsip.com The authorizationUser and password are used to authenticate with your SIP provider.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ var userAgent = new SIP.UA({
+  uri: 'bob@example.onsip.com',
+  wsServers: ['wss://sip-ws.example.com'],
+  authorizationUser: '',
+  password: ''
+});
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+##Authenticated User Agent : 
+To create an authenticated user agent, pass a configuration object to the SIP.UA constructor.
+This configuration Object Needs URI : 
+ 
+ 
+
+
+<video> element is required to display a video stream
+The <video> elements adds a standard way for the browser to display video over the internet without using additional plugins.
+This makes<video> perfect fro WebRTC usage
+Within the <body> tags, there is a remoteVideo <video> element, to display the video of the person being called.
+ There is also a localVideo <video> element, to display the video stream that is being sent to the person being called.
+ The local video stream should always be muted to prevent feedback.
+ -------------------------------------------------------------------------------------------------------------------------------------------------------
+ #Complete Codes List in Calling - Responses Possible
+ 
+	* 100: 'Trying',
+    * 180: 'Ringing',
+    * 181: 'Call Is Being Forwarded',
+    * 182: 'Queued',
+    * 183: 'Session Progress',
+    * 199: 'Early Dialog Terminated',  // draft-ietf-sipcore-199
+    * 200: 'OK',
+    * 202: 'Accepted',  // RFC 3265
+    * 204: 'No Notification',  //RFC 5839
+    * 300: 'Multiple Choices',
+    * 301: 'Moved Permanently',
+    * 302: 'Moved Temporarily',
+    * 305: 'Use Proxy',
+    * 380: 'Alternative Service',
+    * 400: 'Bad Request',
+    * 401: 'Unauthorized',
+    * 402: 'Payment Required',
+    * 403: 'Forbidden',
+    * 404: 'Not Found',
+    * 405: 'Method Not Allowed',
+    * 406: 'Not Acceptable',
+    * 407: 'Proxy Authentication Required',
+    * 408: 'Request Timeout',
+    * 410: 'Gone',
+    * 412: 'Conditional Request Failed',  // RFC 3903
+    * 413: 'Request Entity Too Large',
+    * 414: 'Request-URI Too Long',
+    * 415: 'Unsupported Media Type',
+    * 416: 'Unsupported URI Scheme',
+    * 417: 'Unknown Resource-Priority',  // RFC 4412
+    * 420: 'Bad Extension',
+    * 421: 'Extension Required',
+    * 422: 'Session Interval Too Small',  // RFC 4028
+    * 423: 'Interval Too Brief',
+    * 428: 'Use Identity Header',  // RFC 4474
+    * 429: 'Provide Referrer Identity',  // RFC 3892
+    * 430: 'Flow Failed',  // RFC 5626
+    * 433: 'Anonymity Disallowed',  // RFC 5079
+    * 436: 'Bad Identity-Info',  // RFC 4474
+    * 437: 'Unsupported Certificate',  // RFC 4744
+    * 438: 'Invalid Identity Header',  // RFC 4744
+    * 439: 'First Hop Lacks Outbound Support',  // RFC 5626
+    * 440: 'Max-Breadth Exceeded',  // RFC 5393
+    * 469: 'Bad Info Package',  // draft-ietf-sipcore-info-events
+    * 470: 'Consent Needed',  // RFC 5360
+    * 478: 'Unresolvable Destination',  // Custom code copied from Kamailio.
+    * 480: 'Temporarily Unavailable',
+    * 481: 'Call/Transaction Does Not Exist',
+    * 482: 'Loop Detected',
+    * 483: 'Too Many Hops',
+    * 484: 'Address Incomplete',
+    * 485: 'Ambiguous',
+    * 486: 'Busy Here',
+    * 487: 'Request Terminated',
+    * 488: 'Not Acceptable Here',
+    * 489: 'Bad Event',  // RFC 3265
+    * 491: 'Request Pending',
+    * 493: 'Undecipherable',
+    * 494: 'Security Agreement Required',  // RFC 3329
+    * 500: 'Internal Server Error',
+    * 501: 'Not Implemented',
+    * 502: 'Bad Gateway',
+    * 503: 'Service Unavailable',
+    * 504: 'Server Time-out',
+    * 505: 'Version Not Supported',
+    * 513: 'Message Too Large',
+    * 580: 'Precondition Failure',  // RFC 3312
+    * 600: 'Busy Everywhere',
+    * 603: 'Decline',
+    * 604: 'Does Not Exist Anywhere',
+    * 606: 'Not Acceptable'
+ --------------------------------------------------------------------------------------------------------------------------------------------------------
+##Creating User Agent in JavaScript :
+In order to make calls and send messages, create a SIP user agent.
+Calling the SIP.UA() method, with no parameters, creates an anonymous user agent.
+
+> var userAgent = new SIP.UA();
+--------------------------------------------------------------------------------------------------------------------------------------------
+## Sending An Invite : 
+After the user agent has connected to the SIP server, an invite can be sent to make a call and thereby create a SIP session.
+To send an invite you will need the target user’s SIP address and some options to define the session.
+
+
+Create an options object to define your session.(options->(media->(constraints,render)))
+>var options = {
+>        media: {
+>            constraints: {
+>                audio: true,
+>                video: true
+>            },
+>            render: {
+>                remote: document.getElementById('remoteVideo'),
+>                local: document.getElementById('localVideo')
+>            }
+>        }
+>    };
+
+Then call the .invite() method with the target SIP address and the options object containing session information.
+After invite is called, the browser will ask for permission to access the camera and microphone. 
+Permission must be allowed to make the call. 
+The person being called has the choice of accepting or rejecting the call.
+An endCall button is added to terminate the session using the .bye() method
+--------------------------------------------------------------------------------------------------------------------------
+First User Agent ->Connected to SIP Server->Sending Invite(Require Other Party SIP Address).
+(Create A SIP Session).
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Accept A Call : 
+Finally, To accept a call that is being received, catch the invite event. 
+This event is emitted with a session that the .accept() method must be called on. 
+The accept method will take an options object that can define where to render the video streams. 
+This is similar to the options object used to make a call.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Send DTMF : 
+Send Dial tone Using DTMF:
+Listen for clicks on our dial pad and respond by sending DTMF to the session. 
+This is done by using the dtmf(number) method, which can be used to send one or multiple dial tones at the same time
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+#Make A transfer : 
+Uses Blind Transfer 
+SIP.js supports making blind transfers only. A blind transfer occurs when A causes B to create a session with C.
+
+Use the session.refer(target) method to make a blind transfer between the current user agent on the session call and the user agent at the target address.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+#Handling a Blind Transfer : 
+When receiving a refer, you need to handle the request and attach the new media stream to the video element. 
+This is done by catching the refer event and calling the followRefer function with a callback using session.on('refer', session.followRefer(onReferred)). 
+This function gets passed in the refer request as well as the new session. 
+Then we must display the new session using the attachMediaStream() function
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+#Reuse MediaStreams :
+Reduce Number of Times the user is prompted for access to microphone.
+
+When making or receiving a call, SIP.js allows applications to specify the desired MediaStream as an option to UA.invite and Session.accept, respectively. 
+SIP.js applications can get a reference to a MediaStream using SIP.WebRTC.getUserMedia.
+
+
